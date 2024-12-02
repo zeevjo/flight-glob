@@ -1,1 +1,1 @@
-console.log("base init");
+import "./scripts/glob.js";
