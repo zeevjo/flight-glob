@@ -7,6 +7,12 @@
     <title>Flight Glob</title>
   </head>
   <body>
-    <script src="main.js"></script>
+    <div id="search-container">
+      <input id="search-input" type="text" placeholder="Enter country name" />
+      <button id="search-button">Search</button>
+    </div>
+    <div id="globe-container"></div>
+    <script src="//unpkg.com/globe.gl"></script>
+    <script type="module" src="main.js"></script>
   </body>
 </html>
