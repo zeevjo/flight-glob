@@ -11,7 +11,7 @@ export async function getMainAirPortCode(countryCode) {
 
   let airPorts = await api.get(paths.airPorts, params);
   if (!airPorts.length) {
-    console.error("Error: No country found with the given name.");
+    console.error("Error: No airPorts found");
     return;
   }
 
