@@ -1,4 +1,4 @@
-const api = {
+export const api = {
     // GET method
     get: async (url, params = {}) => {
       if (!url) {
