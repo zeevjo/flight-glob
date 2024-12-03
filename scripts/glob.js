@@ -1,16 +1,12 @@
 import { paths } from "../constants/paths.js";
 import { globPov } from "../utils/globPov.js";
-import {handleDepAndDes} from "/scripts/handleDepAndDes.js"
-import {setDefaultDeparture} from "/scripts/setDefaultDeparture.js"
-
+import { handleDepAndDes } from "/scripts/handleDepAndDes.js";
+import { setDefaultDeparture } from "/scripts/setDefaultDeparture.js";
 
 export const world = Globe()(document.getElementById("globe-container"))
-.globeImageUrl(
-  paths.globUrl
-)
-.showAtmosphere(true)
-.atmosphereAltitude(0.2);
-
+  .globeImageUrl(paths.globUrl)
+  .showAtmosphere(true)
+  .atmosphereAltitude(0.2);
 
 const resizeGlobe = () => {
   const container = document.getElementById("globe-container");
@@ -41,6 +37,6 @@ globPov(world);
 window.addEventListener("resize", resizeGlobe);
 resizeGlobe();
 setDefaultDeparture();
-document.getElementById("search-button").addEventListener("click", handleDepAndDes);
-
-
+document
+  .getElementById("search-button")
+  .addEventListener("click", handleDepAndDes);
