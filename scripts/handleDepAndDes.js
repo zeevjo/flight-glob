@@ -1,5 +1,6 @@
 import { countryCoordinates } from "../constants/countryCoordinates.js";
 import { world } from "./glob.js";
+import {searchStore} from "../constants/searchStore.js"
 
 export const handleDepAndDes = () => {
     const clickedLocations = [];
@@ -29,6 +30,9 @@ export const handleDepAndDes = () => {
     messageDiv.textContent = `Flight path set from ${dep} to ${des}.`;
     messageDiv.style.color = "green";
 
+    searchStore.setDep(dep);
+    searchStore.setDes(des);
+    
     // Move globe to departure country
     world.pointOfView({ lat: depCoordinates.lat, lng: depCoordinates.lng, altitude: 0.7 }, 2000);
 
