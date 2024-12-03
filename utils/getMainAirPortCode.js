@@ -9,7 +9,7 @@ export async function getMainAirPortCode(countryCode) {
     codeIso2Country: countryCode,
   };
 
-  let airPorts = await api.get(paths.airPorts, params);
+  const airPorts = await api.get(paths.airPorts, params);
   if (!airPorts.length) {
     console.error("Error: No airPorts found");
     return;
