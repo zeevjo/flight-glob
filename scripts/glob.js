@@ -12,9 +12,39 @@ const countryCoordinates = {
   israel: { lat: 31.77, lng: 35.23 },
 };
 
-const world = Globe({ animateIn: false })(
-  document.getElementById("globe-container")
-).globeImageUrl(paths.globUrl);
+const world = Globe()(document.getElementById("globe-container"))
+.globeImageUrl(
+  "//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
+)
+.showAtmosphere(true)
+.atmosphereAltitude(0.2);
+
+const resizeGlobe = () => {
+const container = document.getElementById("globe-container");
+const width = container.offsetWidth;
+const height = container.offsetHeight;
+
+world.width(width).height(height);
+
+const screenWidth = window.innerWidth;
+let altitude;
+
+if (screenWidth <= 320) {
+  altitude = 15;
+} else if (screenWidth <= 600) {
+  altitude = 9;
+} else if (screenWidth <= 768) {
+  altitude = 4;
+} else if (screenWidth <= 2570) {
+  altitude = 3;
+}
+
+world.pointOfView({ lat: 0, lng: 0, altitude }, 0);
+};
+
+window.addEventListener("resize", resizeGlobe);
+
+resizeGlobe();
 
 const clickedLocations = [];
 const routes = [];
@@ -110,13 +140,4 @@ world.onArcHover((arc) => {
 
   // Reapply the updated routes array
   world.arcsData([...routes]);
-});
-
-// Reload the page on window resize
-let resizeTimeout;
-window.addEventListener("resize", () => {
-  clearTimeout(resizeTimeout);
-  resizeTimeout = setTimeout(() => {
-    location.reload();
-  }, 200);
 });
