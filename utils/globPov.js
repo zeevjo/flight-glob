@@ -4,7 +4,7 @@ export const globPov = (world) => {
         (position) => {
           const { latitude, longitude } = position.coords;
           console.log(`User location: Latitude ${latitude}, Longitude ${longitude}`);
-          world.pointOfView({ lat: latitude, lng: longitude, altitude: 2 }, 2000);
+          world.pointOfView({ lat: latitude, lng: longitude, altitude: 3 }, 2000);
         },
         (error) => {
           console.error("Error fetching geolocation:", error.message);

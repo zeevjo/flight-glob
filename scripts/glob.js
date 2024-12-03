@@ -1,22 +1,16 @@
 import { paths } from "../constants/paths.js";
 import { globPov } from "../utils/globPov.js";
+import {handleDepAndDes} from "/scripts/handleDepAndDes.js"
+import {setDefaultDeparture} from "/scripts/setDefaultDeparture.js"
 
-const countryCoordinates = {
-  USA: { lat: 37.0902, lng: -95.7129 },
-  India: { lat: 20.5937, lng: 78.9629 },
-  China: { lat: 35.8617, lng: 104.1954 },
-  Brazil: { lat: -14.235, lng: -51.9253 },
-  Canada: { lat: 56.1304, lng: -106.3468 },
-  Australia: { lat: -25.2744, lng: 133.7751 },
-  France: { lat: 46.6034, lng: 1.8883 },
-  Germany: { lat: 51.1657, lng: 10.4515 },
-  israel: { lat: 31.77, lng: 35.23 },
-};
 
-const world = Globe()(document.getElementById("globe-container"))
-  .globeImageUrl("//unpkg.com/three-globe/example/img/earth-blue-marble.jpg")
-  .showAtmosphere(true)
-  .atmosphereAltitude(0.2);
+export const world = Globe()(document.getElementById("globe-container"))
+.globeImageUrl(
+  paths.globUrl
+)
+.showAtmosphere(true)
+.atmosphereAltitude(0.2);
+
 
 const resizeGlobe = () => {
   const container = document.getElementById("globe-container");
@@ -50,20 +44,6 @@ resizeGlobe();
 
 const clickedLocations = [];
 const routes = [];
-
-// Add search functionality
-document.getElementById("search-button").addEventListener("click", () => {
-  const countryName = document.getElementById("search-input").value.trim();
-  const coordinates = countryCoordinates[countryName];
-  if (coordinates) {
-    world.pointOfView(
-      { lat: coordinates.lat, lng: coordinates.lng, altitude: 0.7 },
-      2000 // Animation duration in ms
-    );
-  } else {
-    alert("Country not found. Please enter a valid country name.");
-  }
-});
 
 // Add click listener to globe for arcs
 world.onGlobeClick(({ lat, lng }) => {
@@ -104,7 +84,7 @@ world.onGlobeClick(({ lat, lng }) => {
 world.onArcClick((arc) => {
   console.log("Arc clicked:", arc);
 
-  // Find the index of the clicked arc in the routes array
+
   const arcIndex = routes.findIndex(
     (r) =>
       r.startLat === arc.startLat &&
@@ -114,25 +94,23 @@ world.onArcClick((arc) => {
   );
 
   if (arcIndex !== -1) {
-    // Remove the arc from the routes array
+
     routes.splice(arcIndex, 1);
 
-    // Update the globe with the modified routes array
+
     world.arcsData([...routes]);
   }
 });
 
-// Keep track of the previously hovered arc
+
 let previousHoveredArc = null;
 
-// Add hover listener to change arc color
+
 world.onArcHover((arc) => {
-  // Reset the color of the previously hovered arc
   if (previousHoveredArc) {
     previousHoveredArc.color = ["white", "white"];
   }
 
-  // Highlight the currently hovered arc
   if (arc) {
     arc.color = ["lightgreen", "lightgreen"];
     previousHoveredArc = arc;
@@ -140,6 +118,14 @@ world.onArcHover((arc) => {
     previousHoveredArc = null;
   }
 
-  // Reapply the updated routes array
+
   world.arcsData([...routes]);
 });
+
+
+setDefaultDeparture();
+
+
+document.getElementById("search-button").addEventListener("click", handleDepAndDes);
+
+
