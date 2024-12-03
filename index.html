@@ -4,12 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <title>Flight Glob</title>
+    <title>Flight Globe</title>
   </head>
   <body>
     <div id="search-container">
-      <input id="search-input" type="text" placeholder="Enter country name" />
+      <input class="search-input" id="dep-input" type="text" placeholder="Departure Country" />
+      <input class="search-input" id="des-input" type="text" placeholder="Destination Country" />
       <button id="search-button">Search</button>
+      <div id="message"></div>
     </div>
     <div id="globe-container"></div>
     <script src="//unpkg.com/globe.gl"></script>
