@@ -14,41 +14,39 @@ const countryCoordinates = {
 };
 
 const world = Globe()(document.getElementById("globe-container"))
-.globeImageUrl(
-  "//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
-)
-.showAtmosphere(true)
-.atmosphereAltitude(0.2);
+  .globeImageUrl("//unpkg.com/three-globe/example/img/earth-blue-marble.jpg")
+  .showAtmosphere(true)
+  .atmosphereAltitude(0.2);
 
 const resizeGlobe = () => {
-const container = document.getElementById("globe-container");
-const width = container.offsetWidth;
-const height = container.offsetHeight;
+  const container = document.getElementById("globe-container");
+  const width = container.offsetWidth;
+  const height = container.offsetHeight;
 
-world.width(width).height(height);
+  world.width(width).height(height);
 
-const screenWidth = window.innerWidth;
-let altitude;
+  const screenWidth = window.innerWidth;
+  let altitude;
 
-if (screenWidth <= 320) {
-  altitude = 15;
-} else if (screenWidth <= 600) {
-  altitude = 9;
-} else if (screenWidth <= 768) {
-  altitude = 4;
-} else if (screenWidth <= 2570) {
-  altitude = 3;
-}
+  if (screenWidth <= 310) {
+    altitude = 10;
+  } else if (screenWidth <= 400) {
+    altitude = 9;
+  } else if (screenWidth <= 600) {
+    altitude = 9;
+  } else if (screenWidth <= 768) {
+    altitude = 4;
+  } else if (screenWidth <= 2570) {
+    altitude = 3;
+  }
 
-world.pointOfView({ lat: 0, lng: 0, altitude }, 0);
+  world.pointOfView({ lat: 0, lng: 0, altitude }, 0);
 };
 
-
-
+globPov(world);
 window.addEventListener("resize", resizeGlobe);
 
 resizeGlobe();
-globPov(world);
 
 const clickedLocations = [];
 const routes = [];
@@ -145,4 +143,3 @@ world.onArcHover((arc) => {
   // Reapply the updated routes array
   world.arcsData([...routes]);
 });
-
