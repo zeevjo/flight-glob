@@ -3,7 +3,7 @@ import { SECRET } from "../secret.js";
 import { paths } from "../constants/paths.js";
 import { findFirstInternationalAirport } from "./getInternationalAirport.js";
 
-export async function getMainAirPort(countryCode) {
+export async function getMainAirPortCode(countryCode) {
   const params = {
     key: SECRET.API_KEY,
     codeIso2Country: countryCode,
@@ -17,5 +17,5 @@ export async function getMainAirPort(countryCode) {
 
   const mainAirPort = findFirstInternationalAirport(airPorts);
 
-  return mainAirPort;
+  return mainAirPort.codeIataAirport;
 }
