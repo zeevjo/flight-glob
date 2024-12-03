@@ -55,15 +55,3 @@ const api = {
     },
   };
   
-//   // Example usage
-  
-//   // 1. GET request
-//   api.get("https://jsonplaceholder.typicode.com/users", { id: 1 });
-  
-//   // 2. POST request
-//   api.post("https://jsonplaceholder.typicode.com/posts", {
-//     title: "foo",
-//     body: "bar",
-//     userId: 1,
-//   });
-  
