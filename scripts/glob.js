@@ -1,4 +1,5 @@
 import { paths } from "../constants/paths.js";
+import { globPov } from "../utils/globPov.js";
 
 const countryCoordinates = {
   USA: { lat: 37.0902, lng: -95.7129 },
@@ -42,9 +43,12 @@ if (screenWidth <= 320) {
 world.pointOfView({ lat: 0, lng: 0, altitude }, 0);
 };
 
+
+
 window.addEventListener("resize", resizeGlobe);
 
 resizeGlobe();
+globPov(world);
 
 const clickedLocations = [];
 const routes = [];
@@ -141,3 +145,4 @@ world.onArcHover((arc) => {
   // Reapply the updated routes array
   world.arcsData([...routes]);
 });
+
