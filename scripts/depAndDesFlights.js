@@ -5,16 +5,25 @@ import { getMainAirPortCode } from "../utils/getMainAirPortCode.js";
 import { getTodaysFlights } from "../utils/getTodaysFlights.js";
 
 export async function depAndDesFlights() {
-  const countryCode = await getCountryCode(searchStore.getDep());
+  try {
 
-  const airPortCode = await getMainAirPortCode(countryCode);
+    const countryCode = await getCountryCode(searchStore.getDep());
 
-  const todaysFlights = await getTodaysFlights(airPortCode);
+    const airPortCode = await getMainAirPortCode(countryCode);
 
-  const flightsFilterByDes = await filterFlightsByDes(
-    searchStore.getDes(),
-    todaysFlights
-  );
+    const todaysFlights = await getTodaysFlights(airPortCode);
 
-  return flightsFilterByDes;
+    //for debug
+    // const futureFlightsToDes = filterFutureFlights(todaysFlights);
+
+    const flightsFilterByDes = await filterFlightsByDes(
+      searchStore.getDes(),
+      todaysFlights
+    );
+
+    return flightsFilterByDes;
+  } catch (error) {
+    console.error("Error in depAndDesFlights:", error);
+    return [];
+  }
 }

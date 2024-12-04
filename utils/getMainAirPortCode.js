@@ -4,18 +4,31 @@ import { paths } from "../constants/paths.js";
 import { findFirstInternationalAirport } from "./getInternationalAirport.js";
 
 export async function getMainAirPortCode(countryCode) {
-  const params = {
-    key: SECRET.API_KEY,
-    codeIso2Country: countryCode,
-  };
+  try {
+    const params = {
+      key: SECRET.API_KEY,
+      codeIso2Country: countryCode,
+    };
 
-  const airPorts = await api.get("getMainAirPortCode",paths.airPorts, params);
-  if (!airPorts.length) {
-    console.error("Error: No airPorts found");
-    return;
+    const airPorts = await api.get(
+      "getMainAirPortCode",
+      paths.airPorts,
+      params
+    );
+
+    if (airPorts.success === false) {
+      throw new Error("No airports found");
+    }
+
+    const mainAirPort = findFirstInternationalAirport(airPorts);
+
+    if (!mainAirPort) {
+      throw new Error("No main international airport found");
+    }
+
+    return mainAirPort.codeIataAirport;
+  } catch (error) {
+    console.error("Error in getMainAirPortCode:", error.message);
+    throw error;
   }
-
-  const mainAirPort = findFirstInternationalAirport(airPorts);
-
-  return mainAirPort.codeIataAirport;
 }

@@ -49,6 +49,7 @@ export const countryCoordinates = {
   ElSalvador: { lat: 13.7942, lng: -88.8965 },
   Estonia: { lat: 58.5953, lng: 25.0136 },
   Ethiopia: { lat: 9.145, lng: 40.4897 },
+  England: { lat: 52.3555, lng: -1.1743 },
   Fiji: { lat: -17.7134, lng: 178.065 },
   Finland: { lat: 61.9241, lng: 25.7482 },
   Georgia: { lat: 42.3154, lng: 43.3569 },
