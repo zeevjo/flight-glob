@@ -38,7 +38,9 @@ input:-webkit-autofill:active{
 }
 #search-container {
   position: absolute;
-  top: 3%;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 2px solid red;
   left: 5%;
   z-index: 1000; 
   padding: 10px;

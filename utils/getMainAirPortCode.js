@@ -10,7 +10,11 @@ export async function getMainAirPortCode(countryCode) {
       codeIso2Country: countryCode,
     };
 
-    const airPorts = await api.get("getMainAirPortCode", paths.airPorts, params);
+    const airPorts = await api.get(
+      "getMainAirPortCode",
+      paths.airPorts,
+      params
+    );
 
     if (airPorts.success === false) {
       throw new Error("No airports found");
@@ -25,6 +29,6 @@ export async function getMainAirPortCode(countryCode) {
     return mainAirPort.codeIataAirport;
   } catch (error) {
     console.error("Error in getMainAirPortCode:", error.message);
-    return ""; 
+    return "";
   }
 }
