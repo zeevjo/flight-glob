@@ -6,6 +6,7 @@ import { getMainAirPortCode } from "../utils/getMainAirPortCode.js";
 import { getAirPortsByCountry } from "../utils/getAirPortsByCountry.js";
 import { extractAPIataCodes } from "../utils/extractAPIataCodes.js";
 import { filterFutureFlights } from "../utils/filterFutureFlights.js";
+import { filterFlightsByFields } from "../utils/filterFlightsByFields.js";
 
 export async function filterFlightsByDes(des, flights) {
   const countryCode = await getCountryCode(des);
@@ -21,7 +22,10 @@ export async function filterFlightsByDes(des, flights) {
   );
 
   const futureFlightsToDes = filterFutureFlights(flightsToDes);
-  const firstThree = futureFlightsToDes.slice(0, 3);
+  
+  const haveAllDataFlights = filterFlightsByFields(futureFlightsToDes);
+
+  const firstThree = haveAllDataFlights.slice(0, 3);
 
   return firstThree;
 }

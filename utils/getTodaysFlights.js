@@ -10,6 +10,9 @@ export async function getTodaysFlights(airPortCode) {
   };
 
   const todaysFlights = await api.get("getTodaysFlights",paths.todaysFlights, params);
+
+  console.log("todaysFlights", todaysFlights);
+  
   if (!todaysFlights.length) {
     console.error("Error: No country found with the given name.");
     return;
