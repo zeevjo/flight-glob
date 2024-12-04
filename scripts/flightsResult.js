@@ -1,6 +1,3 @@
-import "./scripts/glob.js";
-
-// main.js
 // Flight data
 const flightData = [
     {
@@ -48,7 +45,7 @@ const flightsList = document.getElementById('flights');
 function createFlightListItem(flight) {
     const li = document.createElement('li');
     
-    li.innerHTML = `
+    li.textContent = `
         <div>
             <strong>${flight.airline.name}</strong>
             <p>Flight: ${flight.flight.iataNumber}</p>
@@ -65,14 +62,10 @@ function createFlightListItem(flight) {
 // Function to populate the flights list
 function populateFlightsList() {
     // Clear any existing list items
-    flightsList.innerHTML = '';
+    flightsList.textContent = '';
     
     // Add each flight to the list
     flightData.forEach(flight => {
         flightsList.appendChild(createFlightListItem(flight));
     });
 }
-
-// Event listener for search button
-document.getElementById('search-button').addEventListener('click', populateFlightsList);
-

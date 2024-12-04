@@ -39,7 +39,7 @@ export const handleDepAndDes = () => {
             startLng: depCoordinates.lng,
             endLat: desCoordinates.lat,
             endLng: desCoordinates.lng,
-            color: ["white", "green"], // Arc starts white and ends green
+            color: ["white", "green"], 
         },
     ];
 
