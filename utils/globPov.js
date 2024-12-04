@@ -8,7 +8,6 @@ export const globPov = (world) => {
         },
         (error) => {
           console.error("Error fetching geolocation:", error.message);
-          // Default to a predefined location (e.g., Israel) if geolocation fails
           const fallbackCoordinates = countryCoordinates.israel;
           world.pointOfView(
             { lat: fallbackCoordinates.lat, lng: fallbackCoordinates.lng, altitude: 2 },

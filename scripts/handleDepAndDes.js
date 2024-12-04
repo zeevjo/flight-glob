@@ -3,6 +3,9 @@ import { world } from "./glob.js";
 import { searchStore } from "../constants/searchStore.js";
 import { depAndDesFlights } from "./depAndDesFlights.js";
 import { populateFlightsList } from "./flightsResult.js";
+import {setDefaultDeparture} from "./setDefaultDeparture.js";
+import { globPov } from "../utils/globPov.js";
+const flightsList = document.getElementById("flights")
 
 export const handleDepAndDes = async () => {
   const dep = document.getElementById("dep-input").value.trim();
@@ -10,13 +13,16 @@ export const handleDepAndDes = async () => {
   const listsOfFlights = document.getElementById("flights");
   const resetButton = document.getElementById("reset-button");
   const messageDiv = document.getElementById("message");
+  const flightsList = document.getElementById("flights")
 
   // Validate that both dep and des are provided
   if ((!dep || !des)) {
     messageDiv.textContent = "Both departure and destination are required.";
     messageDiv.style.color = "red";
+    messageDiv.style.display = "block"
     world.arcsData([]);
     listsOfFlights.textContent=" ";
+    resetButton.style.display="none";
     return; // Exit if inputs are invalid
   }
 
@@ -25,14 +31,17 @@ export const handleDepAndDes = async () => {
   const desCoordinates = countryCoordinates[des];
 
   if (!depCoordinates || !desCoordinates) {
+    messageDiv.style.display = "block"
     messageDiv.textContent = "Invalid country entered. Please try again.";
     messageDiv.style.color = "red";
     world.arcsData([]);
     listsOfFlights.textContent=" "
+    resetButton.style.display="none";
     return; // Exit if coordinates are invalid
   }
 
   messageDiv.textContent = "";
+  messageDiv.style.display= "none";
 
 
   // Store departure and destination
@@ -43,7 +52,7 @@ export const handleDepAndDes = async () => {
   // Move globe to departure country
   await world.pointOfView(
     { lat: depCoordinates.lat, lng: depCoordinates.lng, altitude: 0.7 },
-    2000
+    2500
   );
 
   // Initialize arcData
@@ -71,18 +80,6 @@ export const handleDepAndDes = async () => {
     { lat: desCoordinates.lat, lng: desCoordinates.lng, altitude: 2.5 },
     4000
   );
-    // Add the arc to the globe
-    world.arcsData(arcData)
-        .arcStartLat((d) => d.startLat)
-        .arcStartLng((d) => d.startLng)
-        .arcEndLat((d) => d.endLat)
-        .arcEndLng((d) => d.endLng)
-        .arcColor((d) => d.color)
-        .arcStroke(1.2); // Customize arc thickness
-    // Zoom out to show the entire arc after a delay
-    setTimeout(() => {
-        world.pointOfView({ lat: desCoordinates.lat, lng: desCoordinates.lng, altitude: 2.5 }, 2000);
-    }, 1000);
     // Add hover interaction
     let previousHoveredArc = null;
     world.onArcHover((arc) => {
@@ -120,8 +117,14 @@ export const handleDepAndDes = async () => {
     console.log("flightData", flightData);
     if (flightData && flightData.length > 0) {
       populateFlightsList(flightData);
+      resetButton.style.display = "inline-block";
+    }else{
+      flightsList.innerHTML="";
+      messageDiv.style.display= "inline-block";
+      messageDiv.textContent = "There are no Flights!";
+      messageDiv.style.color= "red"
+      resetButton.style.display="none";
     }
-    resetButton.style.display = "inline-block";
 };
 
 // Reset functionality
@@ -137,7 +140,7 @@ export const resetToDefault = () => {
   desInput.value = '';
 
   // Clear the flights list
-  flightsList.innerHTML = '';
+  flightsList.textContent = '';
 
   // Clear the message
   messageDiv.textContent = '';
@@ -149,8 +152,9 @@ export const resetToDefault = () => {
   resetButton.style.display = "none";
 
   // Optionally reset the globe's point of view
-  world.pointOfView({ lat: 0, lng: 0, altitude: 2.5 }, 2000); // Default view
-};
+  setDefaultDeparture();
+  globPov(world)
+}
 
 // Add event listener for reset button
 document.getElementById("reset-button").addEventListener("click", resetToDefault);
