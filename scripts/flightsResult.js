@@ -1,4 +1,3 @@
-// Flight data
 const flightData = [
     {
         "airline": { "iataCode": "BW", "icaoCode": "BWA", "name": "Caribbean Airlines" },
@@ -44,23 +43,42 @@ const flightsList = document.getElementById('flights');
 // Function to create a list item for each flight
 function createFlightListItem(flight) {
     const li = document.createElement('li');
-    
-    li.textContent = `
-        <div>
-            <strong>${flight.airline.name}</strong>
-            <p>Flight: ${flight.flight.iataNumber}</p>
-            <p>Departure: ${flight.departure.iataCode} (Terminal ${flight.departure.terminal})</p>
-            <p>Arrival: ${flight.arrival.iataCode}</p>
-            <p>Status: ${flight.status}</p>
-            <p>Delay: ${flight.departure.delay} minutes</p>
-        </div>
-    `;
-    
+    const div = document.createElement('div');
+
+    const airline = document.createElement('strong');
+    airline.textContent = flight.airline.name;
+
+    const flightNumber = document.createElement('p');
+    flightNumber.textContent = `Flight: ${flight.flight.iataNumber}`;
+
+    const departure = document.createElement('p');
+    departure.textContent = `Departure: ${flight.departure.iataCode} (Terminal ${flight.departure.terminal})`;
+
+    const arrival = document.createElement('p');
+    arrival.textContent = `Arrival: ${flight.arrival.iataCode}`;
+
+    const status = document.createElement('p');
+    status.textContent = `Status: ${flight.status}`;
+
+    const delay = document.createElement('p');
+    delay.textContent = `Delay: ${flight.departure.delay} minutes`;
+
+    // Append all elements to the div
+    div.appendChild(airline);
+    div.appendChild(flightNumber);
+    div.appendChild(departure);
+    div.appendChild(arrival);
+    div.appendChild(status);
+    div.appendChild(delay);
+
+    // Append the div to the list item
+    li.appendChild(div);
+
     return li;
 }
 
 // Function to populate the flights list
-function populateFlightsList() {
+export function populateFlightsList() {
     // Clear any existing list items
     flightsList.textContent = '';
     
@@ -69,3 +87,6 @@ function populateFlightsList() {
         flightsList.appendChild(createFlightListItem(flight));
     });
 }
+
+// Event listener for search button
+document.getElementById('search-button').addEventListener('click', populateFlightsList);
