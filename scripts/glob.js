@@ -23,7 +23,7 @@ const resizeGlobe = () => {
   } else if (screenWidth <= 400) {
     altitude = 9;
   } else if (screenWidth <= 600) {
-    altitude = 9;
+    altitude = 8;
   } else if (screenWidth <= 768) {
     altitude = 4;
   } else if (screenWidth <= 2570) {
@@ -37,4 +37,6 @@ globPov(world);
 window.addEventListener("resize", resizeGlobe);
 resizeGlobe();
 setDefaultDeparture();
-document.getElementById("search-button").addEventListener("click", handleDepAndDes);
+document
+  .getElementById("search-button")
+  .addEventListener("click", handleDepAndDes);

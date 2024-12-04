@@ -1,5 +1,4 @@
 export function filterFlightsByFields(flights) {
-  console.log("flights", flights);
 
   const requiredFields = [
     "airline.name",
@@ -17,10 +16,7 @@ export function filterFlightsByFields(flights) {
       const value = field
         .split(".")
         .reduce((acc, key) => acc && acc[key], item);
-      return (
-        value !== "empty" &&
-        value !== ""
-      );
+      return value !== "empty" && value !== "";
     });
   });
 }

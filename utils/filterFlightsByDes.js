@@ -1,31 +1,30 @@
-import { api } from "../api/api.js";
-import { SECRET } from "../secret.js";
-import { paths } from "../constants/paths.js";
 import { getCountryCode } from "../utils/getCountryCode.js";
-import { getMainAirPortCode } from "../utils/getMainAirPortCode.js";
 import { getAirPortsByCountry } from "../utils/getAirPortsByCountry.js";
 import { extractAPIataCodes } from "../utils/extractAPIataCodes.js";
 import { filterFutureFlights } from "../utils/filterFutureFlights.js";
 import { filterFlightsByFields } from "../utils/filterFlightsByFields.js";
 
 export async function filterFlightsByDes(des, flights) {
-  const countryCode = await getCountryCode(des);
+  try {
+    const countryCode = await getCountryCode(des);
 
-  const countryAirPorts = await getAirPortsByCountry(countryCode);
+    const countryAirPorts = await getAirPortsByCountry(countryCode);
 
-  const countryAirPortsIata = extractAPIataCodes(countryAirPorts);
+    const countryAirPortsIata = extractAPIataCodes(countryAirPorts);
 
-  console.log("countryAirPortsIata", countryAirPortsIata);
+    const flightsToDes = flights.filter((flight) =>
+      countryAirPortsIata.includes(flight.arrival.iataCode)
+    );
 
-  const flightsToDes = flights.filter((flight) =>
-    countryAirPortsIata.includes(flight.arrival.iataCode)
-  );
+    const futureFlightsToDes = filterFutureFlights(flightsToDes);
 
-  const futureFlightsToDes = filterFutureFlights(flightsToDes);
-  
-  const haveAllDataFlights = filterFlightsByFields(futureFlightsToDes);
+    const haveAllDataFlights = filterFlightsByFields(futureFlightsToDes);
 
-  const firstThree = haveAllDataFlights.slice(0, 3);
+    const firstThree = haveAllDataFlights.slice(0, 3);
 
-  return firstThree;
+    return firstThree;
+  } catch (error) {
+    console.error("Error in filterFlightsByDes:", error.message);
+    return [];
+  }
 }

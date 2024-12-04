@@ -5,21 +5,21 @@ import { depAndDesFlights } from "./depAndDesFlights.js";
 import { populateFlightsList } from "./flightsResult.js";
 import { setDefaultDeparture } from "./setDefaultDeparture.js";
 import { globPov } from "../utils/globPov.js";
-const flightsList = document.getElementById("flights")
+
 
 export const handleDepAndDes = async () => {
-  const depElemnet = document.getElementById("dep-input")
-  const desElemnet = document.getElementById("des-input")
+  const depElement = document.getElementById("dep-input")
+  const desElement = document.getElementById("des-input")
   const listsOfFlights = document.getElementById("flights");
   const resetButton = document.getElementById("reset-button");
   const messageDiv = document.getElementById("message");
   const flightsList = document.getElementById("flights")
 
-  let dep = depElemnet.value.trim().toLowerCase().replace(/^./, (char) => char.toUpperCase());
-  let des = desElemnet.value.trim().toLowerCase().replace(/^./, (char) => char.toUpperCase());
+  let dep = depElement.value.trim().toLowerCase().replace(/^./, (char) => char.toUpperCase());
+  let des = desElement.value.trim().toLowerCase().replace(/^./, (char) => char.toUpperCase());
 
-  depElemnet.value = dep;
-  desElemnet.value = des;
+  depElement.value = dep;
+  desElement.value = des;
 
 
 

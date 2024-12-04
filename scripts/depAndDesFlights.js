@@ -10,6 +10,10 @@ export async function depAndDesFlights() {
   const airPortCode = await getMainAirPortCode(countryCode);
 
   const todaysFlights = await getTodaysFlights(airPortCode);
+  
+  if (todaysFlights.success === false) {
+    return [];
+  }
 
   const flightsFilterByDes = await filterFlightsByDes(
     searchStore.getDes(),
