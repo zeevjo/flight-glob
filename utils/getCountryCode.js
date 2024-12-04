@@ -8,7 +8,7 @@ export async function getCountryCode(country) {
     nameCountry: country,
   };
 
-  const countryData = await api.get(paths.countryData, params);
+  const countryData = await api.get("getCountryCode", paths.countryData, params);
   if (!countryData.length) {
     console.error("Error: No country found with the given name.");
     return;

@@ -8,7 +8,7 @@ export async function getAirPortInfo(airPortCode) {
     codeIataAirport: airPortCode,
   };
 
-  const airPortInfo = await api.get(paths.airPortInfo, params);
+  const airPortInfo = await api.get("getAirPortInfo", paths.airPortInfo, params);
   if (!airPortInfo.length) {
     console.error("Error: No Air Port Info found.");
     return;
