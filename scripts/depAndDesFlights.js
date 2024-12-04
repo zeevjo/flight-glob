@@ -6,6 +6,7 @@ import { getTodaysFlights } from "../utils/getTodaysFlights.js";
 
 export async function depAndDesFlights() {
   try {
+
     const countryCode = await getCountryCode(searchStore.getDep());
 
     const airPortCode = await getMainAirPortCode(countryCode);

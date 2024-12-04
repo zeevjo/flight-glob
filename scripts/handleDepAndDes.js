@@ -6,62 +6,75 @@ import { populateFlightsList } from "./flightsResult.js";
 import { setDefaultDeparture } from "./setDefaultDeparture.js";
 import { globPov } from "../utils/globPov.js";
 
-
 export const handleDepAndDes = async () => {
-  const depElement = document.getElementById("dep-input")
-  const desElement = document.getElementById("des-input")
+  const depElement = document.getElementById("dep-input");
+  const desElement = document.getElementById("des-input");
   const listsOfFlights = document.getElementById("flights");
   const resetButton = document.getElementById("reset-button");
   const messageDiv = document.getElementById("message");
-  const flightsList = document.getElementById("flights")
+  const flightsList = document.getElementById("flights");
 
-  let dep = depElement.value.trim().toLowerCase().replace(/^./, (char) => char.toUpperCase());
-  let des = desElement.value.trim().toLowerCase().replace(/^./, (char) => char.toUpperCase());
+  let dep = depElement.value
+    .trim()
+    .toLowerCase()
+    .replace(/^./, (char) => char.toUpperCase());
+  let des = desElement.value
+    .trim()
+    .toLowerCase()
+    .replace(/^./, (char) => char.toUpperCase());
 
   depElement.value = dep;
   desElement.value = des;
 
+  if (dep === "United states") {
+    dep = "USA";
+  }
 
+  if (des === "United states") {
+    des = "USA";
+  }
 
-  if ((!dep || !des)) {
+  if (!dep || !des) {
     messageDiv.textContent = "Both departure and destination are required.";
     messageDiv.style.color = "red";
-    messageDiv.style.display = "block"
+    messageDiv.style.display = "block";
     world.arcsData([]);
     listsOfFlights.textContent = " ";
     resetButton.style.display = "none";
-    return; 
+    return;
   }
-
 
   const depCoordinates = countryCoordinates[dep];
   const desCoordinates = countryCoordinates[des];
 
   if (!depCoordinates || !desCoordinates) {
-    messageDiv.style.display = "block"
+    messageDiv.style.display = "block";
     messageDiv.textContent = "Invalid country entered. Please try again.";
     messageDiv.style.color = "red";
     world.arcsData([]);
-    listsOfFlights.textContent = " "
+    listsOfFlights.textContent = " ";
     resetButton.style.display = "none";
-    return; 
+    return;
   }
 
   messageDiv.textContent = "";
   messageDiv.style.display = "none";
 
-
-
   searchStore.setDep(dep);
   searchStore.setDes(des);
 
+  if (searchStore.getDep() === "USA") {
+    searchStore.setDep("United States");
+  }
 
+  if (searchStore.getDes() === "USA") {
+    searchStore.setDes("United States");
+  }
 
   await world.pointOfView(
     { lat: depCoordinates.lat, lng: depCoordinates.lng, altitude: 0.7 },
     2500
   );
-
 
   const arcData = [
     {
@@ -72,7 +85,6 @@ export const handleDepAndDes = async () => {
       color: ["white", "green"],
     },
   ];
-
 
   world
     .arcsData(arcData)
@@ -90,23 +102,21 @@ export const handleDepAndDes = async () => {
 
   let previousHoveredArc = null;
   world.onArcHover((arc) => {
-    
     if (previousHoveredArc) {
       previousHoveredArc.color = ["white", "green"];
     }
-    
+
     if (arc) {
       arc.color = ["lightblue", "lightblue"];
       previousHoveredArc = arc;
     } else {
       previousHoveredArc = null;
     }
-    
+
     world.arcsData([...arcData]);
   });
-  
+
   world.onArcClick((arc) => {
-    
     const index = arcData.findIndex(
       (a) =>
         a.startLat === arc.startLat &&
@@ -115,8 +125,8 @@ export const handleDepAndDes = async () => {
         a.endLng === arc.endLng
     );
     if (index !== -1) {
-      arcData.splice(index, 1); 
-      world.arcsData([...arcData]); 
+      arcData.splice(index, 1);
+      world.arcsData([...arcData]);
     }
   });
 
@@ -129,11 +139,10 @@ export const handleDepAndDes = async () => {
     flightsList.innerHTML = "";
     messageDiv.style.display = "inline-block";
     messageDiv.textContent = "There are no Flights!";
-    messageDiv.style.color = "red"
+    messageDiv.style.color = "red";
     resetButton.style.display = "none";
   }
 };
-
 
 export const resetToDefault = () => {
   const depInput = document.getElementById("dep-input");
@@ -142,16 +151,17 @@ export const resetToDefault = () => {
   const resetButton = document.getElementById("reset-button");
   const flightsList = document.getElementById("flights");
 
-  depInput.value = '';
-  desInput.value = '';
-  flightsList.textContent = '';
-  messageDiv.textContent = '';
-  world.arcsData([]); 
+  depInput.value = "";
+  desInput.value = "";
+  flightsList.textContent = "";
+  messageDiv.textContent = "";
+  world.arcsData([]);
   resetButton.style.display = "none";
 
   setDefaultDeparture();
-  globPov(world)
-}
+  globPov(world);
+};
 
-document.getElementById("reset-button").addEventListener("click", resetToDefault);
-
+document
+  .getElementById("reset-button")
+  .addEventListener("click", resetToDefault);
