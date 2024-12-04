@@ -78,7 +78,7 @@ function createFlightListItem(flight) {
 }
 
 // Function to populate the flights list
-export function populateFlightsList() {
+export function populateFlightsList(flightData) {
     // Clear any existing list items
     flightsList.textContent = '';
     
@@ -87,6 +87,3 @@ export function populateFlightsList() {
         flightsList.appendChild(createFlightListItem(flight));
     });
 }
-
-// Event listener for search button
-document.getElementById('search-button').addEventListener('click', populateFlightsList);
