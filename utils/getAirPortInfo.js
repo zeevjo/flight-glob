@@ -18,6 +18,6 @@ export async function getAirPortInfo(airPortCode) {
     return airPortInfo;
   } catch (error) {
     console.error("Error in getAirPortInfo:", error.message);
-    return {}; 
+    throw error;
   }
 }

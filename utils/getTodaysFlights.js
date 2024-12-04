@@ -23,6 +23,6 @@ export async function getTodaysFlights(airPortCode) {
     return todaysFlights;
   } catch (error) {
     console.error("Error in getTodaysFlights:", error.message);
-    return "";
+    throw error;
   }
 }

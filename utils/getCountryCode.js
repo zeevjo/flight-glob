@@ -22,6 +22,6 @@ export async function getCountryCode(country) {
     return countryData[0].codeIso2Country;
   } catch (error) {
     console.error("Error in getCountryCode:", error.message);
-    return ""; 
+    throw error;
   }
 }

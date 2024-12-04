@@ -33,6 +33,6 @@ export async function filterFlightsByDes(des, flights) {
     return firstThree;
   } catch (error) {
     console.error("Error in filterFlightsByDes:", error.message);
-    return [];
+    throw error;
   }
 }

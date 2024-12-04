@@ -29,6 +29,6 @@ export async function getMainAirPortCode(countryCode) {
     return mainAirPort.codeIataAirport;
   } catch (error) {
     console.error("Error in getMainAirPortCode:", error.message);
-    return "";
+    throw error;
   }
 }

@@ -6,7 +6,7 @@ import { setDefaultDeparture } from "/scripts/setDefaultDeparture.js";
 export const world = Globe()(document.getElementById("globe-container"))
   .globeImageUrl(paths.globUrl)
   .showAtmosphere(true)
-  .atmosphereAltitude(0.2);
+  .atmosphereAltitude(0.3);
 
 const resizeGlobe = () => {
   const container = document.getElementById("globe-container");

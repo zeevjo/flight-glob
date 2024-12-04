@@ -22,6 +22,6 @@ export async function getAirPortsByCountry(countryCode) {
     return airPorts;
   } catch (error) {
     console.error("Error in getAirPortsByCountry:", error.message);
-    return "";
+    throw error;
   }
 }
