@@ -1,6 +1,6 @@
-const api = {
+export const api = {
     // GET method
-    get: async (url, params = {}) => {
+    get: async (callerName, url, params = {}) => {
       if (!url) {
         console.error("Error: URL is required");
         return;
@@ -19,7 +19,7 @@ const api = {
         }
   
         const data = await response.json();
-        console.log("GET Response Data:", data);
+        console.log(`${callerName} Response Data:`, data);
         return data;
       } catch (error) {
         console.error("Error in GET request:", error.message);
@@ -27,7 +27,7 @@ const api = {
     },
   
     // POST method
-    post: async (url, body = {}) => {
+    post: async (callerName, url, body = {}) => {
       if (!url) {
         console.error("Error: URL is required");
         return;
@@ -47,7 +47,7 @@ const api = {
         }
   
         const data = await response.json();
-        console.log("POST Response Data:", data);
+        console.log(`${callerName} Response Data:`, data);
         return data;
       } catch (error) {
         console.error("Error in POST request:", error.message);
