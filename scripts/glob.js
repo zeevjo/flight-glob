@@ -37,6 +37,4 @@ globPov(world);
 window.addEventListener("resize", resizeGlobe);
 resizeGlobe();
 setDefaultDeparture();
-document
-  .getElementById("search-button")
-  .addEventListener("click", handleDepAndDes);
+document.getElementById("search-button").addEventListener("click", handleDepAndDes);
