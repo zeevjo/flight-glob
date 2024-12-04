@@ -8,7 +8,6 @@ import { extractAPIataCodes } from "../utils/extractAPIataCodes.js";
 import { filterFutureFlights } from "../utils/filterFutureFlights.js";
 
 export async function filterFlightsByDes(des, flights) {
-
   const countryCode = await getCountryCode(des);
 
   const countryAirPorts = await getAirPortsByCountry(countryCode);
@@ -22,6 +21,7 @@ export async function filterFlightsByDes(des, flights) {
   );
 
   const futureFlightsToDes = filterFutureFlights(flightsToDes);
+  const firstThree = futureFlightsToDes.slice(0, 3);
 
-  return futureFlightsToDes;
+  return firstThree;
 }
