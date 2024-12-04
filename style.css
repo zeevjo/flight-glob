@@ -16,7 +16,7 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 0; /* Push behind inputs */
+  z-index: 0; 
 }
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 
@@ -30,13 +30,14 @@ input:-webkit-autofill:active{
   position: absolute;
   top: 5%;
   left: 5%;
-  z-index: 1000; /* Ensure inputs are above the globe */
+  z-index: 1000; 
   padding: 10px;
   border-radius: 8px;
   display: flex;
-  flex-direction: column; /* Stack items vertically */
+  flex-direction: column; 
   align-items: flex-start;
-  gap: 10px; /* Space between items */
+  gap: 10px; 
+  height: 80%;
 }
 input:focus {
   outline: none;
@@ -59,9 +60,9 @@ input:focus {
 }
 
 
-#search-button {
+.btn {
   width: 100%;
-  height: 45px;
+  height: 5vh;
   background: rgba(255, 255, 255, 0.2);
   border: none;
   border-radius: 12px;
@@ -74,7 +75,7 @@ input:focus {
   transition: all 0.3s ease;
 }
 
-#search-button:hover {
+.btn:hover {
   background: rgba(255, 255, 255, 0.4);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
@@ -100,14 +101,69 @@ input:focus {
   }
 
   .search-input {
-    width: 250px;
+    width: 100%;
     font-size: 13px;
     height: 35px;
   }
 
-  #search-button {
+  .btn {
     height: 40px;
     font-size: 12px;
+  }
+}
+/* Flight List Styling */
+#result-container{
+  width: 100%;
+  height: auto;
+}
+#flights {
+  list-style-type: none;
+  width: 100%;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#flights li {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 15px;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  color: white;
+  height: 20%;
+}
+
+#flights li div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+#flights li strong {
+  font-size: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  padding-bottom: 10px;
+}
+
+#flights li p {
+  font-size: 14px;
+  margin: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  #flights {
+      gap: 8px;
+  }
+  
+  #flights li {
+      padding: 12px;
+  }
+  
+  #flights li p {
+      font-size: 13px;
   }
 }
 
@@ -126,7 +182,7 @@ input:focus {
     height: 35px;
   }
 
-  #search-button {
+  .btn {
     height: 40px;
     font-size: 12px;
   }

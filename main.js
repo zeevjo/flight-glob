@@ -1,1 +1,5 @@
-import "./scripts/glob.js";
+import "../scripts/glob.js";
+
+
+
+
