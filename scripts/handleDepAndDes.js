@@ -3,30 +3,37 @@ import { world } from "./glob.js";
 import { searchStore } from "../constants/searchStore.js";
 import { depAndDesFlights } from "./depAndDesFlights.js";
 import { populateFlightsList } from "./flightsResult.js";
-import {setDefaultDeparture} from "./setDefaultDeparture.js";
+import { setDefaultDeparture } from "./setDefaultDeparture.js";
 import { globPov } from "../utils/globPov.js";
 const flightsList = document.getElementById("flights")
 
 export const handleDepAndDes = async () => {
-  const dep = document.getElementById("dep-input").value.trim();
-  const des = document.getElementById("des-input").value.trim();
+  const depElemnet = document.getElementById("dep-input")
+  const desElemnet = document.getElementById("des-input")
   const listsOfFlights = document.getElementById("flights");
   const resetButton = document.getElementById("reset-button");
   const messageDiv = document.getElementById("message");
   const flightsList = document.getElementById("flights")
 
-  // Validate that both dep and des are provided
+  let dep = depElemnet.value.trim().toLowerCase().replace(/^./, (char) => char.toUpperCase());
+  let des = desElemnet.value.trim().toLowerCase().replace(/^./, (char) => char.toUpperCase());
+
+  depElemnet.value = dep;
+  desElemnet.value = des;
+
+
+
   if ((!dep || !des)) {
     messageDiv.textContent = "Both departure and destination are required.";
     messageDiv.style.color = "red";
     messageDiv.style.display = "block"
     world.arcsData([]);
-    listsOfFlights.textContent=" ";
-    resetButton.style.display="none";
-    return; // Exit if inputs are invalid
+    listsOfFlights.textContent = " ";
+    resetButton.style.display = "none";
+    return; 
   }
 
-  // Validate that both dep and des are valid countries
+
   const depCoordinates = countryCoordinates[dep];
   const desCoordinates = countryCoordinates[des];
 
@@ -35,27 +42,27 @@ export const handleDepAndDes = async () => {
     messageDiv.textContent = "Invalid country entered. Please try again.";
     messageDiv.style.color = "red";
     world.arcsData([]);
-    listsOfFlights.textContent=" "
-    resetButton.style.display="none";
-    return; // Exit if coordinates are invalid
+    listsOfFlights.textContent = " "
+    resetButton.style.display = "none";
+    return; 
   }
 
   messageDiv.textContent = "";
-  messageDiv.style.display= "none";
+  messageDiv.style.display = "none";
 
 
-  // Store departure and destination
+
   searchStore.setDep(dep);
   searchStore.setDes(des);
 
 
-  // Move globe to departure country
+
   await world.pointOfView(
     { lat: depCoordinates.lat, lng: depCoordinates.lng, altitude: 0.7 },
     2500
   );
 
-  // Initialize arcData
+
   const arcData = [
     {
       startLat: depCoordinates.lat,
@@ -66,7 +73,7 @@ export const handleDepAndDes = async () => {
     },
   ];
 
-  // Add the arc to the globe
+
   world
     .arcsData(arcData)
     .arcStartLat((d) => d.startLat)
@@ -74,60 +81,60 @@ export const handleDepAndDes = async () => {
     .arcEndLat((d) => d.endLat)
     .arcEndLng((d) => d.endLng)
     .arcColor((d) => d.color)
-    .arcStroke(1.2); 
+    .arcStroke(1.2);
 
   await world.pointOfView(
     { lat: desCoordinates.lat, lng: desCoordinates.lng, altitude: 2.5 },
     4000
   );
-    // Add hover interaction
-    let previousHoveredArc = null;
-    world.onArcHover((arc) => {
-        // Reset the previously hovered arc's color
-        if (previousHoveredArc) {
-            previousHoveredArc.color = ["white", "green"];
-        }
-        // Highlight the currently hovered arc
-        if (arc) {
-            arc.color = ["lightblue", "lightblue"];
-            previousHoveredArc = arc;
-        } else {
-            previousHoveredArc = null;
-        }
-        // Reapply updated arcsData
-        world.arcsData([...arcData]);
-    });
-    // Add click interaction to delete arcs
-    world.onArcClick((arc) => {
-        // Remove the clicked arc from arcData
-        const index = arcData.findIndex(
-            (a) =>
-                a.startLat === arc.startLat &&
-                a.startLng === arc.startLng &&
-                a.endLat === arc.endLat &&
-                a.endLng === arc.endLng
-        );
-        if (index !== -1) {
-            arcData.splice(index, 1); // Remove arc from data
-            world.arcsData([...arcData]); // Update globe
-        }
-    });
+
+  let previousHoveredArc = null;
+  world.onArcHover((arc) => {
     
-  const flightData = await depAndDesFlights();
-    console.log("flightData", flightData);
-    if (flightData && flightData.length > 0) {
-      populateFlightsList(flightData);
-      resetButton.style.display = "inline-block";
-    }else{
-      flightsList.innerHTML="";
-      messageDiv.style.display= "inline-block";
-      messageDiv.textContent = "There are no Flights!";
-      messageDiv.style.color= "red"
-      resetButton.style.display="none";
+    if (previousHoveredArc) {
+      previousHoveredArc.color = ["white", "green"];
     }
+    
+    if (arc) {
+      arc.color = ["lightblue", "lightblue"];
+      previousHoveredArc = arc;
+    } else {
+      previousHoveredArc = null;
+    }
+    
+    world.arcsData([...arcData]);
+  });
+  
+  world.onArcClick((arc) => {
+    
+    const index = arcData.findIndex(
+      (a) =>
+        a.startLat === arc.startLat &&
+        a.startLng === arc.startLng &&
+        a.endLat === arc.endLat &&
+        a.endLng === arc.endLng
+    );
+    if (index !== -1) {
+      arcData.splice(index, 1); 
+      world.arcsData([...arcData]); 
+    }
+  });
+
+  const flightData = await depAndDesFlights();
+  console.log("flightData", flightData);
+  if (flightData && flightData.length > 0) {
+    populateFlightsList(flightData);
+    resetButton.style.display = "inline-block";
+  } else {
+    flightsList.innerHTML = "";
+    messageDiv.style.display = "inline-block";
+    messageDiv.textContent = "There are no Flights!";
+    messageDiv.style.color = "red"
+    resetButton.style.display = "none";
+  }
 };
 
-// Reset functionality
+
 export const resetToDefault = () => {
   const depInput = document.getElementById("dep-input");
   const desInput = document.getElementById("des-input");
@@ -135,27 +142,16 @@ export const resetToDefault = () => {
   const resetButton = document.getElementById("reset-button");
   const flightsList = document.getElementById("flights");
 
-  // Clear input fields
   depInput.value = '';
   desInput.value = '';
-
-  // Clear the flights list
   flightsList.textContent = '';
-
-  // Clear the message
   messageDiv.textContent = '';
-
-  // Remove all arcs from the globe
-  world.arcsData([]); // Reset the globe to default state
-
-  // Hide the reset button
+  world.arcsData([]); 
   resetButton.style.display = "none";
 
-  // Optionally reset the globe's point of view
   setDefaultDeparture();
   globPov(world)
 }
 
-// Add event listener for reset button
 document.getElementById("reset-button").addEventListener("click", resetToDefault);
 
