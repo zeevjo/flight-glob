@@ -1,0 +1,35 @@
+.clock-gpt-container {
+    display: none;
+  }
+  
+  @media (min-width: 900px) {
+    .clock-gpt-container {
+      position: absolute;
+      top: 3%;
+      right: 5%;
+      z-index: 1000;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 95vh;
+      border: 2px solid red;
+      overflow: auto;
+      min-width: 300px;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+  
+    .clock {
+      border: 2px solid red;
+      width: 100%;
+      height: 20%;
+    }
+  
+    .gpt {
+      border: 2px solid red;
+      width: 100%;
+      height: 79%;
+    }
+  }
+  

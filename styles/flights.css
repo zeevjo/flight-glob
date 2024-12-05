@@ -1,0 +1,55 @@
+#result-container {
+  width: 100%;
+  height: auto;
+}
+#flights {
+  list-style-type: none;
+  width: 100%;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#flights li {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 15px;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  color: white;
+  height: 10%;
+}
+
+#flights li div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+#flights li strong {
+  font-size: 16px;
+  font-weight: bold;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  padding-bottom: 10px;
+}
+
+#flights li p {
+  font-size: 14px;
+  margin: 0;
+}
+
+
+@media (max-width: 768px) {
+  #flights {
+    gap: 8px;
+  }
+
+  #flights li {
+    padding: 12px;
+  }
+
+  #flights li p {
+    font-size: 13px;
+  }
+}
