@@ -184,7 +184,7 @@ input:-webkit-autofill:active{
     left: 5%;
     width: 90vw;
     gap: 8px;
-    height: 89vh;
+    height:auto;
   }
 
   .search-input {
