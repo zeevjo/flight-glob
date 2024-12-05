@@ -1,9 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-.roboto-regular {
-  font-family: "Roboto", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+@import url("./styles/flights.css");
 
 * {
   margin: 0;
@@ -26,28 +22,36 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 0; 
+  z-index: 0;
 }
+
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus, 
-input:-webkit-autofill:active{
-    -webkit-text-fill-color: #ffffff;
-    transition: background-color 5000s ease-in-out 0s;
-    box-shadow: inset 0 0 20px 20px #23232329;
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-text-fill-color: #ffffff;
+  transition: background-color 5000s ease-in-out 0s;
+  box-shadow: inset 0 0 20px 20px #23232329;
 }
+
 #search-container {
   position: absolute;
   top: 3%;
   left: 5%;
-  z-index: 1000; 
+  z-index: 1000;
   padding: 10px;
   border-radius: 8px;
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   align-items: flex-start;
-  gap: 10px; 
+  gap: 10px;
   height: 95vh;
+
+  overflow: auto; 
+  border: 1px solid black; 
+  
+  scrollbar-width: none; 
+  -ms-overflow-style: none; 
 }
 .search-input {
   width: 300px;
@@ -60,8 +64,8 @@ input:-webkit-autofill:active{
   color: #fff;
   font-size: 14px;
   border: none;
+  text-align: left;
 }
-
 
 .btn {
   width: 100%;
@@ -74,13 +78,12 @@ input:-webkit-autofill:active{
   color: white;
   font-size: 14px;
   cursor: pointer;
-  height: 5%;
+  min-height: 35px;
   transition: all 0.3s ease;
 }
 
-
-#reset-button:hover{
-  background: rgba(111,0, 0,0.3);
+#reset-button:hover {
+  background: rgba(111, 0, 0, 0.3);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
@@ -99,14 +102,31 @@ input:-webkit-autofill:active{
   text-align: center;
 }
 
-/* Responsive Design */
 
-/* For tablets */
-@media (max-width: 768px) {
+@media (min-width: 600px) {
   #search-container {
-    top: 5%;
-    left: 5%;
-    gap: 8px;
+    overflow: auto;
+    direction: rtl;
+    text-align: left;
+    -ms-overflow-style: auto; 
+    scrollbar-width: auto;
+  }
+
+  #search-container::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  #search-container::-webkit-scrollbar-track {
+    background: transparent;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+  }
+
+  #search-container::-webkit-scrollbar-thumb {
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    border: 1px solid #000011;
+    cursor: pointer;
   }
 
   .search-input {
@@ -118,62 +138,6 @@ input:-webkit-autofill:active{
   .btn {
     height: 40px;
     font-size: 12px;
-  }
-}
-/* Flight List Styling */
-#result-container{
-  width: 100%;
-  height: auto;
-}
-#flights {
-  list-style-type: none;
-  width: 100%;
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-#flights li {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 16px;
-  padding: 15px;
-  backdrop-filter: blur(4px);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  color: white;
-  height: 10%;
-}
-
-#flights li div {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-#flights li strong {
-  font-size: 16px;
-  font-weight: bold;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-  padding-bottom: 10px;
-}
-
-#flights li p {
-  font-size: 14px;
-  margin: 0;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  #flights {
-      gap: 8px;
-  }
-  
-  #flights li {
-      padding: 12px;
-  }
-  
-  #flights li p {
-      font-size: 13px;
   }
 }
 
