@@ -28,7 +28,7 @@ export async function filterFlightsByDes(des, flights) {
 
     const haveAllDataFlights = filterFlightsByFields(futureFlightsToDes);
 
-    const firstThree = futureFlightsToDes.slice(0, 3);
+    const firstThree = haveAllDataFlights.slice(0, 3);
 
     return firstThree;
   } catch (error) {
