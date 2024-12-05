@@ -24,8 +24,6 @@ export async function filterFlightsByDes(des, flights) {
 
     // console.log('%c futureFlightsToDes', 'color: green; font-weight: bold;', futureFlightsToDes);
 
-    
-
     const haveAllDataFlights = filterFlightsByFields(futureFlightsToDes);
 
     const firstThree = haveAllDataFlights.slice(0, 3);
