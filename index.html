@@ -9,27 +9,34 @@
   </head>
   <body>
     <div id="search-container">
-      <input class="search-input" id="dep-input" type="text" placeholder="Departure Country" />
-      <input class="search-input" id="des-input" type="text" placeholder="Destination Country" />
+      <input
+        class="search-input"
+        id="dep-input"
+        type="text"
+        placeholder="Departure Country"
+      />
+      <input
+        class="search-input"
+        id="des-input"
+        type="text"
+        placeholder="Destination Country"
+      />
       <button class="btn" id="search-button">Search</button>
       <div id="result-container">
-        <ul id="flights">
-        </ul>
+        <ul id="flights"></ul>
       </div>
       <div id="message"></div>
-      <button class="btn" id="reset-button" style="display: none;">Reset</button>
+      <button class="btn" id="reset-button" style="display: none">Reset</button>
     </div>
     <div class="clock-gpt-container">
       <div class="clock">
-          <span id="hrs">00</span>
-          <span>:</span>
-          <span id="min">00</span>
+        <span id="hrs">00</span>
+        <span>:</span>
+        <span id="min">00</span>
       </div>
       <div class="gpt"></div>
     </div>
     <div id="globe-container"></div>
-    <div class="container">
-    </div>
     <script src="//unpkg.com/globe.gl"></script>
     <script type="module" src="main.js"></script>
     <script src="scripts/clock.js"></script>
