@@ -88,6 +88,7 @@ input:-webkit-autofill:active {
     top: 5%;
     left: 5%;
     width: 90vw;
+    height:auto;
   }
 
   .search-input {
@@ -144,6 +145,6 @@ input:-webkit-autofill:active {
 
 @media (min-width: 900px) {
     #search-container {
-        min-width: 300px;
+        width: 300px;
     }
 }
