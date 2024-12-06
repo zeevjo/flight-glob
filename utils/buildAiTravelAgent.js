@@ -2,8 +2,6 @@ import { gptStyleWriter } from "./gptStyleWriter.js";
 import { countryTravelAgentFields } from "../constants/countryTravelAgentFields .js";
 
 export async function buildAiTravelAgent(aiCountryData) {
-  console.log("aiCountryData", typeof aiCountryData);
-
   const gptContainer = document.getElementById("ai-travel-agent");
 
   if (!gptContainer) {

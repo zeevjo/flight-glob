@@ -6,7 +6,6 @@ import { populateFlightsList } from "./flightsResult.js";
 import { setDefaultDeparture } from "./setDefaultDeparture.js";
 import { globPov } from "../utils/globPov.js";
 import { callGPT } from "./gpt.js";
-import { gptStyleWriter } from "../utils/gptStyleWriter.js";
 import { buildAiTravelAgent } from "../utils/buildAiTravelAgent.js";
 
 export const handleDepAndDes = async () => {
@@ -138,28 +137,23 @@ export const handleDepAndDes = async () => {
     }
   });
 
-  // const aiCountryData = await callGPT(searchStore.getDes());
+  const flightData = await depAndDesFlights();
 
-   const flightData = await depAndDesFlights();
-
-  // if (flightData && flightData.length > 0) {
-  //   //build ai object
-  //   const gptContainer = document.getElementById("ai-travel-agent");
-  //   gptContainer.innerHTML = "";
-  //   gptContainer.classList.toggle("gpt");
-  //   await buildAiTravelAgent(aiCountryData);
-  // }
   console.log("flightData", flightData);
   if (flightData && flightData.length > 0) {
     populateFlightsList(flightData);
     resetButton.style.display = "inline-block";
 
-    const aiCountryData = await callGPT(searchStore.getDes());
+    if (window.screen.width >= 900) {
+      const aiCountryData = await callGPT(searchStore.getDes());
 
-    const gptContainer = document.getElementById("ai-travel-agent");
-    gptContainer.innerHTML = "";
-    gptContainer.classList.toggle("gpt");
-    await buildAiTravelAgent(aiCountryData);
+      const clockGptContainer = document.querySelector(".clock-gpt-container");
+      const gptContainer = document.createElement("div");
+      gptContainer.setAttribute("id", "ai-travel-agent");
+      gptContainer.classList.add("gpt");
+      clockGptContainer.appendChild(gptContainer);
+      await buildAiTravelAgent(aiCountryData);
+    }
   } else {
     flightsList.innerHTML = "";
     messageDiv.style.display = "inline-block";
@@ -179,8 +173,7 @@ export const resetToDefault = () => {
   const gptContainer = document.getElementById("ai-travel-agent");
 
   if (gptContainer) {
-    gptContainer.classList.toggle("gpt");
-    gptContainer.innerHTML = "";
+    gptContainer.remove();
   }
 
   depInput.value = "";
