@@ -1,10 +1,10 @@
 import { countryCoordinates } from "../constants/countryCoordinates.js";
-import { world } from "./glob.js";
+import { world } from "./globe.js";
 import { searchStore } from "../constants/searchStore.js";
 import { depAndDesFlights } from "./depAndDesFlights.js";
 import { populateFlightsList } from "./flightsResult.js";
 import { setDefaultDeparture } from "./setDefaultDeparture.js";
-import { globPov } from "../utils/globPov.js";
+import { globePov } from "../utils/globePov.js";
 import { callGPT } from "./gpt.js";
 import { buildAiTravelAgent } from "../utils/buildAiTravelAgent.js";
 
@@ -194,7 +194,7 @@ export const resetToDefault = () => {
   if (searchStore.getDes() === "USA") {
     searchStore.setDes("United States");
   }
-  globPov(world);
+  globePov(world);
 };
 
 document
