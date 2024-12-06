@@ -26,6 +26,11 @@ export const handleDepAndDes = async () => {
     .toLowerCase()
     .replace(/^./, (char) => char.toUpperCase());
 
+  if (searchStore.getDep() === dep && searchStore.getDes() === des) {
+    console.log("don't search twice");
+    return;
+  }
+
   depElement.value = dep;
   desElement.value = des;
 
@@ -141,6 +146,7 @@ export const handleDepAndDes = async () => {
     //build ai object
     const gptContainer = document.getElementById("ai-travel-agent");
     gptContainer.innerHTML = "";
+    gptContainer.classList.toggle("gpt");
     await buildAiTravelAgent(aiCountryData);
   }
   console.log("flightData", flightData);
@@ -166,6 +172,7 @@ export const resetToDefault = () => {
   const gptContainer = document.getElementById("ai-travel-agent");
 
   if (gptContainer) {
+    gptContainer.classList.toggle("gpt");
     gptContainer.innerHTML = "";
   }
 
@@ -177,6 +184,16 @@ export const resetToDefault = () => {
   resetButton.style.display = "none";
 
   setDefaultDeparture();
+  searchStore.setDep(depInput.value);
+  searchStore.setDes(desInput.value);
+
+  if (searchStore.getDep() === "USA") {
+    searchStore.setDep("United States");
+  }
+
+  if (searchStore.getDes() === "USA") {
+    searchStore.setDes("United States");
+  }
   globPov(world);
 };
 

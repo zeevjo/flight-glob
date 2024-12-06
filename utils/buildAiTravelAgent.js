@@ -5,7 +5,7 @@ export async function buildAiTravelAgent(aiCountryData) {
   console.log("aiCountryData", typeof aiCountryData);
 
   const gptContainer = document.getElementById("ai-travel-agent");
-  gptContainer.style = "display: block;";
+  // gptContainer.classList.toggle("gpt");
 
   if (!gptContainer) {
     console.error("Container with id 'ai-travel-agent' not found.");
