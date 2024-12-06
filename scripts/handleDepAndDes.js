@@ -138,21 +138,28 @@ export const handleDepAndDes = async () => {
     }
   });
 
-  const aiCountryData = await callGPT(searchStore.getDes());
+  // const aiCountryData = await callGPT(searchStore.getDes());
 
-  const flightData = await depAndDesFlights();
+   const flightData = await depAndDesFlights();
 
-  if (flightData && flightData.length > 0) {
-    //build ai object
-    const gptContainer = document.getElementById("ai-travel-agent");
-    gptContainer.innerHTML = "";
-    gptContainer.classList.toggle("gpt");
-    await buildAiTravelAgent(aiCountryData);
-  }
+  // if (flightData && flightData.length > 0) {
+  //   //build ai object
+  //   const gptContainer = document.getElementById("ai-travel-agent");
+  //   gptContainer.innerHTML = "";
+  //   gptContainer.classList.toggle("gpt");
+  //   await buildAiTravelAgent(aiCountryData);
+  // }
   console.log("flightData", flightData);
   if (flightData && flightData.length > 0) {
     populateFlightsList(flightData);
     resetButton.style.display = "inline-block";
+
+    const aiCountryData = await callGPT(searchStore.getDes());
+
+    const gptContainer = document.getElementById("ai-travel-agent");
+    gptContainer.innerHTML = "";
+    gptContainer.classList.toggle("gpt");
+    await buildAiTravelAgent(aiCountryData);
   } else {
     flightsList.innerHTML = "";
     messageDiv.style.display = "inline-block";

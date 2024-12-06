@@ -31,7 +31,7 @@ Ensure all fields are included and return only the JSON object.`;
     }
 
     const data = await response.json();
-    console.log(data.choices[0].message.content); // Log the GPT response
+    console.log(data.choices[0].message.content); 
     return JSON.parse(data.choices[0].message.content);
   } catch (error) {
     console.error("Error calling GPT:", error);
@@ -39,4 +39,3 @@ Ensure all fields are included and return only the JSON object.`;
   }
 }
 
-// callGPT("Thailand");
