@@ -5,6 +5,9 @@ import { depAndDesFlights } from "./depAndDesFlights.js";
 import { populateFlightsList } from "./flightsResult.js";
 import { setDefaultDeparture } from "./setDefaultDeparture.js";
 import { globPov } from "../utils/globPov.js";
+import { callGPT } from "./gpt.js";
+import { gptStyleWriter } from "../utils/gptStyleWriter.js";
+import { buildAiTravelAgent } from "../utils/buildAiTravelAgent.js";
 
 export const handleDepAndDes = async () => {
   const depElement = document.getElementById("dep-input");
@@ -130,7 +133,16 @@ export const handleDepAndDes = async () => {
     }
   });
 
+  const aiCountryData = await callGPT(searchStore.getDes());
+
   const flightData = await depAndDesFlights();
+
+  if (flightData && flightData.length > 0) {
+    //build ai object
+    const gptContainer = document.getElementById("ai-travel-agent");
+    gptContainer.innerHTML = "";
+    await buildAiTravelAgent(aiCountryData);
+  }
   console.log("flightData", flightData);
   if (flightData && flightData.length > 0) {
     populateFlightsList(flightData);
@@ -150,6 +162,12 @@ export const resetToDefault = () => {
   const messageDiv = document.getElementById("message");
   const resetButton = document.getElementById("reset-button");
   const flightsList = document.getElementById("flights");
+
+  const gptContainer = document.getElementById("ai-travel-agent");
+
+  if (gptContainer) {
+    gptContainer.innerHTML = "";
+  }
 
   depInput.value = "";
   desInput.value = "";
