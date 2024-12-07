@@ -79,10 +79,10 @@ export const handleDepAndDes = async () => {
     searchStore.setDes("United States");
   }
 
-  await world.pointOfView(
-    { lat: depCoordinates.lat, lng: depCoordinates.lng, altitude: 0.7 },
-    2500
-  );
+  // await world.pointOfView(
+  //   { lat: depCoordinates.lat, lng: depCoordinates.lng, altitude: 0.7 },
+  //   2500
+  // );
 
   const arcData = [
     {
