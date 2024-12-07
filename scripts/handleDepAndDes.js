@@ -197,6 +197,8 @@ export const resetToDefault = () => {
   globePov(world);
 };
 
+
+
 document
   .getElementById("reset-button")
   .addEventListener("click", resetToDefault);
