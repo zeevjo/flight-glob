@@ -3,8 +3,7 @@ import { SECRET } from "../secret.js";
 
 export async function callGPT(countryName) {
   const prompt = `Generate a JSON object for the country ${countryName} with the following fields:
-- "capital", "currency", "localLang", "touristSites" (3 items), "continent", "timezone", "dialCode", "airports" (2 items), 
-  "flightDemand", "avgFlightDuration", "bestTravelSeasons" (2 items), "localFoods" (3 items), "culturalTips", 
+- "capital", "currency", "localLang", "touristSites" (3 items), "dialCode", "airports" (2 items), "bestTravelSeasons" (2 items), "localFoods" (3 items), "culturalTips", 
   "weatherSummary", and "exchangeRate" in { "USD": "value" } format.
 Ensure all fields are included and return only the JSON object.`;
 
@@ -31,11 +30,10 @@ Ensure all fields are included and return only the JSON object.`;
     }
 
     const data = await response.json();
-    console.log(data.choices[0].message.content); 
+    console.log(data.choices[0].message.content);
     return JSON.parse(data.choices[0].message.content);
   } catch (error) {
     console.error("Error calling GPT:", error);
     return null;
   }
 }
-

@@ -7,6 +7,7 @@ import { setDefaultDeparture } from "./setDefaultDeparture.js";
 import { globePov } from "../utils/globePov.js";
 import { callGPT } from "./gpt.js";
 import { buildAiTravelAgent } from "../utils/buildAiTravelAgent.js";
+import { gptResponseValidator } from "../utils/gptResponseValidator.js";
 
 export const handleDepAndDes = async () => {
   const depElement = document.getElementById("dep-input");
@@ -146,13 +147,16 @@ export const handleDepAndDes = async () => {
 
     if (window.screen.width >= 900) {
       const aiCountryData = await callGPT(searchStore.getDes());
-
-      const clockGptContainer = document.querySelector(".clock-gpt-container");
-      const gptContainer = document.createElement("div");
-      gptContainer.setAttribute("id", "ai-travel-agent");
-      gptContainer.classList.add("gpt");
-      clockGptContainer.appendChild(gptContainer);
-      await buildAiTravelAgent(aiCountryData);
+      if (gptResponseValidator(aiCountryData)) {
+        const clockGptContainer = document.querySelector(
+          ".clock-gpt-container"
+        );
+        const gptContainer = document.createElement("div");
+        gptContainer.setAttribute("id", "ai-travel-agent");
+        gptContainer.classList.add("gpt");
+        clockGptContainer.appendChild(gptContainer);
+        await buildAiTravelAgent(aiCountryData);
+      }
     }
   } else {
     flightsList.innerHTML = "";

@@ -12,12 +12,6 @@ export function countryTravelAgentFields(aiCountryData) {
       value: aiCountryData.touristSites.join(", "),
       idSuffix: "touristSites",
     },
-    // {
-    //   label: "Continent",
-    //   value: aiCountryData.continent,
-    //   idSuffix: "continent",
-    // },
-    // { label: "Timezone", value: aiCountryData.timezone, idSuffix: "timezone" },
     { label: "Dial Code", value: aiCountryData.dialCode, idSuffix: "dialCode" },
     {
       label: "Airports",
@@ -26,16 +20,6 @@ export function countryTravelAgentFields(aiCountryData) {
         .join(", "),
       idSuffix: "airports",
     },
-    // {
-    //   label: "Flight Demand",
-    //   value: aiCountryData.flightDemand,
-    //   idSuffix: "flightDemand",
-    // },
-    // {
-    //   label: "Average Flight Duration",
-    //   value: aiCountryData.avgFlightDuration,
-    //   idSuffix: "avgFlightDuration",
-    // },
     {
       label: "Best Travel Seasons",
       value: aiCountryData.bestTravelSeasons.join(", "),
