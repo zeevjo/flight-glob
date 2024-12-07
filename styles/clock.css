@@ -11,7 +11,7 @@
       border-radius: 8px;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: flex-start;
       height: 95vh;
       overflow: auto;
       min-width: 300px;

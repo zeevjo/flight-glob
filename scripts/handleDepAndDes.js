@@ -1,10 +1,13 @@
 import { countryCoordinates } from "../constants/countryCoordinates.js";
-import { world } from "./glob.js";
+import { world } from "./globe.js";
 import { searchStore } from "../constants/searchStore.js";
 import { depAndDesFlights } from "./depAndDesFlights.js";
 import { populateFlightsList } from "./flightsResult.js";
 import { setDefaultDeparture } from "./setDefaultDeparture.js";
-import { globPov } from "../utils/globPov.js";
+import { globePov } from "../utils/globePov.js";
+import { callGPT } from "./gpt.js";
+import { buildAiTravelAgent } from "../utils/buildAiTravelAgent.js";
+import { gptResponseValidator } from "../utils/gptResponseValidator.js";
 
 export const handleDepAndDes = async () => {
   const depElement = document.getElementById("dep-input");
@@ -22,6 +25,11 @@ export const handleDepAndDes = async () => {
     .trim()
     .toLowerCase()
     .replace(/^./, (char) => char.toUpperCase());
+
+  if (searchStore.getDep() === dep && searchStore.getDes() === des) {
+    console.log("don't search twice");
+    return;
+  }
 
   depElement.value = dep;
   desElement.value = des;
@@ -131,10 +139,25 @@ export const handleDepAndDes = async () => {
   });
 
   const flightData = await depAndDesFlights();
+
   console.log("flightData", flightData);
   if (flightData && flightData.length > 0) {
     populateFlightsList(flightData);
     resetButton.style.display = "inline-block";
+
+    if (window.screen.width >= 900) {
+      const aiCountryData = await callGPT(searchStore.getDes());
+      if (gptResponseValidator(aiCountryData)) {
+        const clockGptContainer = document.querySelector(
+          ".clock-gpt-container"
+        );
+        const gptContainer = document.createElement("div");
+        gptContainer.setAttribute("id", "ai-travel-agent");
+        gptContainer.classList.add("gpt");
+        clockGptContainer.appendChild(gptContainer);
+        await buildAiTravelAgent(aiCountryData);
+      }
+    }
   } else {
     flightsList.innerHTML = "";
     messageDiv.style.display = "inline-block";
@@ -151,6 +174,12 @@ export const resetToDefault = () => {
   const resetButton = document.getElementById("reset-button");
   const flightsList = document.getElementById("flights");
 
+  const gptContainer = document.getElementById("ai-travel-agent");
+
+  if (gptContainer) {
+    gptContainer.remove();
+  }
+
   depInput.value = "";
   desInput.value = "";
   flightsList.textContent = "";
@@ -159,7 +188,17 @@ export const resetToDefault = () => {
   resetButton.style.display = "none";
 
   setDefaultDeparture();
-  globPov(world);
+  searchStore.setDep(depInput.value);
+  searchStore.setDes(desInput.value);
+
+  if (searchStore.getDep() === "USA") {
+    searchStore.setDep("United States");
+  }
+
+  if (searchStore.getDes() === "USA") {
+    searchStore.setDes("United States");
+  }
+  globePov(world);
 };
 
 document

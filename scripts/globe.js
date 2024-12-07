@@ -1,5 +1,5 @@
 import { paths } from "../constants/paths.js";
-import { globPov } from "../utils/globPov.js";
+import { globePov } from "../utils/globePov.js";
 import { handleDepAndDes } from "/scripts/handleDepAndDes.js";
 import { setDefaultDeparture } from "/scripts/setDefaultDeparture.js";
 
@@ -33,7 +33,7 @@ const resizeGlobe = () => {
   world.pointOfView({ lat: 0, lng: 0, altitude }, 0);
 };
 
-globPov(world);
+globePov(world);
 window.addEventListener("resize", resizeGlobe);
 resizeGlobe();
 setDefaultDeparture();

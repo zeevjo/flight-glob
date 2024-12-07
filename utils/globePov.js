@@ -1,4 +1,4 @@
-export const globPov = (world) => {
+export const globePov = (world) => {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
