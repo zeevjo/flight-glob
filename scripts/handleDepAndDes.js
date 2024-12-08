@@ -141,19 +141,23 @@ export const handleDepAndDes = async () => {
     populateFlightsList(flightData);
     resetButton.style.display = "inline-block";
 
-    if (window.screen.width >= 900) {
+    // if (window.screen.width >= 900) {
       const aiCountryData = await callGPT(searchStore.getDes());
       if (gptResponseValidator(aiCountryData)) {
         const clockGptContainer = document.querySelector(
           ".clock-gpt-container"
         );
+        const aiContainer = document.getElementById('ai-travel-agent');
+        if (aiContainer) {
+          aiContainer.remove();
+        }
         const gptContainer = document.createElement("div");
         gptContainer.setAttribute("id", "ai-travel-agent");
         gptContainer.classList.add("gpt");
         clockGptContainer.appendChild(gptContainer);
         await buildAiTravelAgent(aiCountryData);
       }
-    }
+    // }
   } else {
     flightsList.innerHTML = "";
     messageDiv.style.display = "inline-block";

@@ -1,18 +1,25 @@
 .gpt {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  backdrop-filter: blur(40px);
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
-  padding: 15px;
-  max-width: 300px;
-  margin-top: 20px;
-  display: block;
+  display: none;
 }
 
-.gpt div{
-  margin-bottom: 15px;
+
+@media (min-width: 900px){
+  .gpt {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(40px);
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    padding: 15px;
+    max-width: 300px;
+    margin-top: 20px;
+    display: block;
+  }
+  
+  .gpt div{
+    margin-bottom: 15px;
+  }
 }
